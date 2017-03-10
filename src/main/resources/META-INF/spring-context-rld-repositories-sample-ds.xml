@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+    <bean id="rldSampleDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close"
+        p:driverClassName="${rld-sample.jdbc.driverClassName}"
+        p:url="${rld-sample.jdbc.url}"
+        p:username="${rld-sample.jdbc.username}"
+        p:password="${rld-sample.jdbc.password}"
+        p:initialSize="5"
+        p:maxActive="10"
+        p:maxIdle="5"
+        p:minIdle="2"
+        p:testWhileIdle="true"
+        p:testOnBorrow="true"
+        p:validationQuery="select 1"
+        p:validationQueryTimeout="30"
+        p:jmxEnabled="true" />
+
+</beans>

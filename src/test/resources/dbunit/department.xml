@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "rld-repositories-sample.dtd">
+<dataset>
+
+    <DEPARTMENT ID="1001" NAME="IT" />
+    <DEPARTMENT ID="1002" NAME="Sales" />
+
+    <!-- Makes DbUnit clean the employee table when doing a clean insert, fixes problem with foreign key -->
+    <!-- from employee.department_id to department. -->
+    <EMPLOYEE />
+
+</dataset>

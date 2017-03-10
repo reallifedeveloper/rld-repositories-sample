@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+    <jpa:repositories
+        base-package="com.reallifedeveloper.sample.infrastructure.persistence"
+        entity-manager-factory-ref="rldSampleEntityManagerFactory" transaction-manager-ref="rldSampleTransactionManager" />
+
+    <bean id="rldSampleEntityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:persistenceUnitName="rld-sample" p:packagesToScan="com.reallifedeveloper.sample"
+        p:dataSource-ref="rldSampleDataSource" p:jpaVendorAdapter-ref="rldSampleHibernateJpaVendorAdapter"
+        p:jpaDialect-ref="rldSampleJpaDialect" p:jpaProperties-ref="rldSampleHibernateProperties" />
+
+    <bean id="rldSampleTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
+        p:entityManagerFactory-ref="rldSampleEntityManagerFactory" p:jpaDialect-ref="rldSampleJpaDialect">
+        <qualifier value="rld-sample" />
+    </bean>
+
+    <!-- ================= -->
+    <!-- JPA configuration -->
+    <!-- ================= -->
+
+    <bean id="rldSampleHibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+        p:databasePlatform="${rld-sample.jpa.databasePlatform}" p:database="${rld-sample.jpa.database}"
+        p:generateDdl="${rld-sample.jpa.generateDdl}" />
+
+    <bean id="rldSampleJpaDialect" class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+
+    <util:properties id="rldSampleHibernateProperties">
+        <prop key="hibernate.hbm2ddl.auto">${rld-sample.hibernate.hbm2ddl.auto}</prop>
+        <prop key="hibernate.cache.provider_class">org.hibernate.cache.HashtableCacheProvider</prop>
+        <prop key="hibernate.jdbc.batch_size">0</prop>
+    </util:properties>
+
+</beans>
